@@ -48,8 +48,8 @@ class UserMap extends Component {
           this.debounced();
         }}
         defaultCenter={{
-          lat: 45.84,
-          lng: 9.66
+          lat: 41.39,
+          lng: 2.15
         }}
       >
         {users &&

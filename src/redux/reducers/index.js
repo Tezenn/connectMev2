@@ -6,14 +6,15 @@ const initalState = {
 const userReducer = (state = initalState, action) => {
   switch (action.type) {
     case 'ADD_CURRENT_POSITION':
+      console.log('add_current_position, how is the state? ', state);
       return {
         ...state,
         currentUser: {
-          ...state.currentUser,
           location: [
             action.position.coords.latitude,
             action.position.coords.longitude
-          ]
+          ],
+          ...state.currentUser
         }
       };
 
@@ -33,6 +34,7 @@ const userReducer = (state = initalState, action) => {
       return {
         ...state,
         currentUser: {
+          ...state.currentUser,
           ...action.data
         }
       };
