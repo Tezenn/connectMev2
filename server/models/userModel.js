@@ -5,6 +5,7 @@ exports.createUser = async user => {
     username: user.username,
     password: user.password,
     email: user.email,
+    auth: '',
     location: {
       type: 'Point',
       coordinates: user.coords

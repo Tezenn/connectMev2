@@ -25,7 +25,8 @@ const userReducer = (state = initalState, action) => {
           ...state.currentUser,
           id: action.data._id,
           username: action.data.username,
-          topics: action.data.topics
+          topics: action.data.topics,
+          token: action.data.auth
         }
       };
 

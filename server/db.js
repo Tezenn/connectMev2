@@ -12,6 +12,7 @@ const user = new mongoose.Schema({
   username: String,
   password: String,
   email: String,
+  auth: String,
   topics: [String],
   location: {
     type: { type: String },

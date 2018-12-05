@@ -8,11 +8,11 @@ const secret = process.env.SECRET;
 exports.createUser = async (req, res) => {
   const userData = req.body;
   const alreadyRegistered = await db.User.findOne({ email: userData.email });
-  console.log('already registered: ', alreadyRegistered);
   if (!alreadyRegistered) {
     const hash = await bcrypt.hash(userData.password, 10);
     userData.password = hash;
     let user = await userModel.createUser(userData);
+    console.log('creating user: ', user);
     res.status(200).send(user);
   } else {
     res.status(404).send({ error: 'email already registered' });
@@ -20,7 +20,22 @@ exports.createUser = async (req, res) => {
 };
 
 exports.addTopics = async (req, res) => {
+  console.log('req.body from add topics: ', req.body);
   const updatedUser = await userModel.updateUser(req.body);
+  const token = jwt.sign(
+    {
+      username: updatedUser.username,
+      id: updatedUser.id,
+      topics: updatedUser.topics,
+      location: updatedUser.location.coordinates
+    },
+    secret,
+    {
+      expiresIn: '24h'
+    }
+  );
+  updatedUser.auth = token;
+  console.log(updatedUser);
   res.status(201).send(updatedUser);
 };
 
