@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Geocode from 'react-geocode';
-import { API_KEY } from '../config';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import AutocompleteSetting from './placesAuto';
 import { updateCurrentUser } from '../redux/actions';
 
 class Register extends Component {
@@ -11,34 +10,15 @@ class Register extends Component {
     password: '',
     email: '',
     location: '',
-    coords: '',
+    coords: this.props.store.currentUser.location,
     next: false
   };
 
-  componentDidMount() {
-    Geocode.setApiKey(API_KEY);
-    Geocode.enableDebug();
-    Geocode.fromLatLng(
-      this.props.store.currentUser.location[0].toString(),
-      this.props.store.currentUser.location[1].toString()
-    ).then(
-      res => {
-        const address = res.results[0].formatted_address;
-        this.setState({
-          location: address,
-          coords: this.props.store.currentUser.location
-        });
-      },
-      error => console.log(error)
-    );
-  }
-
   handleGeo = obj => {
+    console.log('handle geo: ', obj);
     this.setState({
-      newUser: {
-        ...this.state.newUser,
-        location: obj
-      }
+      coords: [obj.coords.lat, obj.coords.lng],
+      location: obj.address
     });
   };
 
@@ -105,12 +85,9 @@ class Register extends Component {
             onChange={this.handleChange}
           />
           <label>Location:</label>
-          <input
-            type="text"
-            name="location"
-            placeholder="Where do you live?"
-            value={this.state.location}
-            onChange={this.handleChange}
+          <AutocompleteSetting
+            currentPos={this.props.store.currentUser.location}
+            geo={this.handleGeo}
           />
           <button type="submit">Next</button>
         </form>

@@ -39,6 +39,13 @@ class Topics extends Component {
     this.setState({ topic: e.target.value });
   };
 
+  onKeyPress = e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      this.addTopic(e);
+    }
+  };
+
   render() {
     if (this.state.next) {
       return <Redirect to="/main" />;
@@ -46,7 +53,7 @@ class Topics extends Component {
     return (
       <div>
         <h1>Add Your Topics</h1>
-        <form>
+        <form onSubmit={this.sendTopics} onKeyPress={this.onKeyPress}>
           <input
             type="text"
             name="topics"
@@ -55,8 +62,10 @@ class Topics extends Component {
             onChange={this.handleChange}
           />
         </form>
-        <button onClick={this.addTopic}>Add</button>
-        <button onClick={this.sendTopics}>Start Exploring</button>
+        <button type="button" onClick={this.addTopic}>
+          Add
+        </button>
+        <button type="submit">Start Exploring</button>
         <div className="topicsList">
           {this.state.topics.map((el, i) => {
             return <p key={i}>{el}</p>;
