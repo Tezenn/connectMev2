@@ -1,12 +1,11 @@
 const initalState = {
   currentUser: {},
-  nearUsers: {}
+  nearUsers: []
 };
 
 const userReducer = (state = initalState, action) => {
   switch (action.type) {
     case 'ADD_CURRENT_POSITION':
-      console.log('add_current_position, how is the state? ', state);
       return {
         ...state,
         currentUser: {
@@ -31,13 +30,18 @@ const userReducer = (state = initalState, action) => {
       };
 
     case 'LOGIN':
-      console.log(action);
       return {
         ...state,
         currentUser: {
           ...state.currentUser,
           ...action.data
         }
+      };
+
+    case 'LOAD_CLOSE_USERS':
+      return {
+        ...state,
+        nearUsers: [...action.users]
       };
 
     case 'CLEAR':

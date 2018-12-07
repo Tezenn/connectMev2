@@ -10,7 +10,10 @@ class Main extends Component {
         <div className="main_buttons">
           <button onClick={() => this.props.clear()}>Log Out</button>
         </div>
-        <Map currentPosition={this.props.store.currentUser.location} />
+        <Map
+          currentPosition={this.props.store.currentUser.location}
+          users={this.props.store.nearUsers}
+        />
       </div>
     );
   }

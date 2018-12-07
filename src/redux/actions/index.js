@@ -13,4 +13,9 @@ export const login = data => ({
   data
 });
 
+export const loadCloseUsers = users => ({
+  type: 'LOAD_CLOSE_USERS',
+  users
+});
+
 export const clear = () => ({ type: 'CLEAR' });

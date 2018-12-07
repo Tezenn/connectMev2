@@ -6,5 +6,6 @@ router.get('/check', auth);
 router.post('/user', userController.createUser);
 router.put('/user', userController.addTopics);
 router.get('/login', userController.login);
+router.post('/closeUsers', userController.closeUsers);
 
 module.exports = router;

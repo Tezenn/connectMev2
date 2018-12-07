@@ -7,8 +7,8 @@ class MarkerWithInfo extends Component {
     return (
       <Marker
         position={{
-          lat: user.location.coordinates[1],
-          lng: user.location.coordinates[0]
+          lat: user.location.coordinates[0],
+          lng: user.location.coordinates[1]
         }}
         onClick={onSelect}
       >

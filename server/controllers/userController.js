@@ -76,3 +76,24 @@ exports.login = async (req, res) => {
     }
   });
 };
+
+exports.closeUsers = async (req, res) => {
+  const coords = req.body.coords;
+  const users = await db.User.find({
+    location: {
+      $near: {
+        $geometry: { type: 'Point', coordinates: [coords[0], coords[1]] },
+        $maxDistance: 15000
+      }
+    }
+  })
+    .find((err, res) => {
+      if (err) console.log('error: ', err);
+      console.log('near users: ', res);
+      return res;
+    })
+    .select('-password');
+  if (users) {
+    res.status(200).send(users);
+  }
+};

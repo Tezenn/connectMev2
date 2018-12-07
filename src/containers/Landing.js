@@ -3,7 +3,12 @@ import { Redirect } from 'react-router-dom';
 import getPosition from '../utils/getPosition';
 import check from '../utils/initialCheck';
 import { connect } from 'react-redux';
-import { addCurrentPosition, clear, login } from '../redux/actions/index';
+import {
+  addCurrentPosition,
+  clear,
+  login,
+  loadCloseUsers
+} from '../redux/actions/index';
 
 class Landing extends Component {
   state = {
@@ -52,6 +57,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   setLocation: position => dispatch(addCurrentPosition(position)),
+  loadCloseUsers: users => dispatch(loadCloseUsers(users)),
   clear: () => dispatch(clear()),
   login: data => dispatch(login(data))
 });
